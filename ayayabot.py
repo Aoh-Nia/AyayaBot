@@ -27,3 +27,5 @@ async def on_message(message):
 
 load_dotenv()  # This loads the .env file
 token = os.getenv("DISCORD_TOKEN")
+
+bot.run(token)
