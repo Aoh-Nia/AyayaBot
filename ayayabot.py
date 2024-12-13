@@ -5,7 +5,7 @@ import os
 from flask import Flask
 from threading import Thread
 
-# Initialize Flask app to keep the bot alive
+# Flask for keeping the bot alive
 app = Flask('')
 
 @app.route('/')
@@ -19,25 +19,14 @@ def keep_alive():
     t = Thread(target=run)
     t.start()
 
+# Define intents and bot initialization
 intents = discord.Intents.default()
 intents.message_content = True  # Enable message content intent
-
-# Define your bot's intents and command prefix
-intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="!", intents=intents)
-
-# Load cogs (commands) from the "commands" folder
-for filename in os.listdir('./commands'):
-    if filename.endswith('.py') and not filename.startswith('__'):
-        try:
-            bot.load_extension(f'commands.{filename[:-3]}')  # Remove ".py" to load as module
-            print(f"Loaded cog: {filename}")
-        except Exception as e:
-            print(f"Failed to load cog {filename}: {e}")
 
 @bot.event
 async def on_ready():
-    # Set the bot's status to Idle with competing activity
+    # Set the bot's status to Competing
     await bot.change_presence(
         status=discord.Status.idle,  # Idle status
         activity=discord.Activity(
@@ -47,16 +36,27 @@ async def on_ready():
         ),
     )
     print(f"We have logged in as {bot.user}")
-    
-    # Sync slash commands globally after bot is ready
-    await bot.tree.sync()
 
-# Load the .env file and get the token
-load_dotenv()  
-token = os.getenv("DISCORD_TOKEN")
+# Load cogs from the "commands" folder
+async def load_cogs():
+    print("Loading cogs...")
+    for filename in os.listdir('./commands'):
+        if filename.endswith('.py') and not filename.startswith('__'):
+            try:
+                await bot.load_extension(f'commands.{filename[:-3]}')
+                print(f"Loaded cog: {filename}")
+            except Exception as e:
+                print(f"Failed to load cog {filename}: {e}")
 
-# Start the keep_alive function to ensure the bot stays active on platforms like Replit
-keep_alive()
+# Main function
+async def main():
+    async with bot:
+        await load_cogs()
+        await bot.start(token)
 
-# Run the bot with the token
-bot.run(token)
+if __name__ == "__main__":
+    load_dotenv()  # Load .env file for token
+    token = os.getenv("DISCORD_TOKEN")
+    keep_alive()   # Start Flask server
+    import asyncio
+    asyncio.run(main())
