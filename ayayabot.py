@@ -19,9 +19,21 @@ def keep_alive():
     t = Thread(target=run)
     t.start()
 
+intents = discord.Intents.default()
+intents.message_content = True  # Enable message content intent
+
 # Define your bot's intents and command prefix
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="!", intents=intents)
+
+# Load cogs (commands) from the "commands" folder
+for filename in os.listdir('./commands'):
+    if filename.endswith('.py') and not filename.startswith('__'):
+        try:
+            bot.load_extension(f'commands.{filename[:-3]}')  # Remove ".py" to load as module
+            print(f"Loaded cog: {filename}")
+        except Exception as e:
+            print(f"Failed to load cog {filename}: {e}")
 
 @bot.event
 async def on_ready():
