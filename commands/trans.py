@@ -1,14 +1,15 @@
 import discord
 from discord.ext import commands
+from discord import app_commands
 
-class Greet(commands.Cog):
-    def __init__(self, ayayabot):
-        self.ayayabot = ayayabot
+class Trans(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
 
-    @commands.command()
-    async def greet(self, ctx):
+    @app_commands.command(name="trans", description="I wonder what this does...")
+    async def trans(self, interaction: discord.Interaction):
         """I wonder what this does..."""
-        await ctx.send(f'<:AYAYA:928769603717460018> Ayaya Supports Transgender People! �')
+        await interaction.response.send_message('<:AYAYA:928769603717460018> Ayaya Supports Transgender People! 🏳️‍⚧️')
 
-def setup(ayayabot):
-    ayayabot.add_cog(Greet(ayayabot))
+def setup(bot):
+    bot.add_cog(Trans(bot))

@@ -5,6 +5,7 @@ import os
 from flask import Flask
 from threading import Thread
 
+# Initialize Flask app to keep the bot alive
 app = Flask('')
 
 @app.route('/')
@@ -24,7 +25,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready():
-    # Set the bot's status to Idle
+    # Set the bot's status to Idle with competing activity
     await bot.change_presence(
         status=discord.Status.idle,  # Idle status
         activity=discord.Activity(
@@ -35,24 +36,15 @@ async def on_ready():
     )
     print(f"We have logged in as {bot.user}")
     
-# TEST COMMAND
-@bot.event
-async def on_message(message):
-    # Check if the bot is mentioned in the message
-    if bot.user.mentioned_in(message):
-        await message.channel.send("meow! :3")
-    
-    # Process commands (important to include this line for commands to work)
-    await bot.process_commands(message)
+    # Sync slash commands globally after bot is ready
+    await bot.tree.sync()
 
-# Load commands from the "commands" folder
-for filename in os.listdir('./commands'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'commands.{filename[:-3]}')  # Remove ".py" from filename
-
-load_dotenv()  # This loads the .env file
+# Load the .env file and get the token
+load_dotenv()  
 token = os.getenv("DISCORD_TOKEN")
 
+# Start the keep_alive function to ensure the bot stays active on platforms like Replit
 keep_alive()
 
+# Run the bot with the token
 bot.run(token)
