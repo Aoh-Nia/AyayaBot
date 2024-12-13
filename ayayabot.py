@@ -2,22 +2,6 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 import os
-from flask import Flask
-from threading import Thread
-
-# Flask for keeping the bot alive
-app = Flask('')
-
-@app.route('/')
-def home():
-    return "Bot is alive!"
-
-def run():
-    app.run(host='0.0.0.0', port=8080)
-
-def keep_alive():
-    t = Thread(target=run)
-    t.start()
 
 # Define intents and bot initialization
 intents = discord.Intents.default()
@@ -36,6 +20,12 @@ async def on_ready():
         ),
     )
     print(f"We have logged in as {bot.user}")
+    try:
+        # Sync slash commands with Discord
+        synced = await bot.tree.sync()
+        print(f"Synced {len(synced)} commands.")
+    except Exception as e:
+        print(f"Failed to sync commands: {e}")
 
 # Load cogs from the "commands" folder
 async def load_cogs():
@@ -57,6 +47,5 @@ async def main():
 if __name__ == "__main__":
     load_dotenv()  # Load .env file for token
     token = os.getenv("DISCORD_TOKEN")
-    keep_alive()   # Start Flask server
     import asyncio
     asyncio.run(main())
