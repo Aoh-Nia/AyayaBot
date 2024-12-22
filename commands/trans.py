@@ -7,7 +7,6 @@ class Trans(commands.Cog):
 
     @discord.app_commands.command(name="trans", description="Support transgender people!")
     async def trans(self, interaction: discord.Interaction):
-        """Slash command to send a supportive message."""
         await interaction.response.send_message('<:AYAYA:928769603717460018> Ayaya Supports Transgender People! 🌈')
 
 # Async setup function to add the cog
