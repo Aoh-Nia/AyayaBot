@@ -1,0 +1,64 @@
+{
+    "questions": [
+        {
+            "question": "What date does Bunzo Cutout say in Chapter 2?",
+            "options": ["June 28th", "April 1st", "August 18th", "January 26th"],
+            "answer": "June 28th"
+        },
+        {
+            "question": "How many different colors does Musical Memory have?",
+            "options": ["5", "7", "4", "6"],
+            "answer": "7"
+        },
+        {
+            "question": "How many different Train Codes are there?",
+            "options": ["4", "256", "10", "64"],
+            "answer": "10"
+        },
+        {
+            "question": "How many colors you need to hit to open the door leading to the Blue Hand in Chapter 1?",
+            "options": ["2", "3", "4", "5"],
+            "answer": "4"
+        },
+        {
+            "question": "How many times you need to hit Mini-Huggies in order to complete Whack-A-Wuggy?",
+            "options": ["25", "30", "35", "40"],
+            "answer": "40"
+        },
+        {
+            "question": "How many different tapes are in Chapter 1?",
+            "options": ["5", "6", "7", "8"],
+            "answer": "5"
+        },
+        {
+            "question": "How many different tapes are in Chapter 2?",
+            "options": ["6", "7", "8", "9"],
+            "answer": "7"
+        },
+        {
+            "question": "How many different tapes are in Chapter 3?",
+            "options": ["8", "9", "10", "11"],
+            "answer": "11"
+        },
+        {
+            "question": "What trick involves NAM Skip?",
+            "options": ["Hyperspeed Swing", "Prop Boost", "Jump Buffer", "Green Hand Early"],
+            "answer": "Hyperspeed Swing"
+        },
+        {
+            "question": "How many different Deaths are there in Chapter 2?",
+            "options": ["3", "4", "5", "6"],
+            "answer": "5"
+        },
+        {
+            "question": "How many different Cutouts are there in Chapter 2?",
+            "options": ["7", "8", "9", "10"],
+            "answer": "8"
+        },
+        {
+            "question": "How many different Cutouts are there in Chapter 3?",
+            "options": ["9", "10", "11", "12"],
+            "answer": "12"
+        }
+    ]
+}
